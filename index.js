@@ -6,29 +6,13 @@ const bodyParser = require("body-parser");
 const bcryptauth = require("./utils/bc");
 const db = require("./utils/db");
 const csurf = require("csurf");
-const multer = require("multer");
-const uidSafe = require("uid-safe");
-const path = require("path");
-const s3 = require("./utils/s3");
+
+// const uidSafe = require("uid-safe");
+// const path = require("path");
+
 const config = require("./config.json");
-
-var diskStorage = multer.diskStorage({
-    destination: function(req, file, callback) {
-        callback(null, __dirname + "/uploads");
-    },
-    filename: function(req, file, callback) {
-        uidSafe(24).then(function(uid) {
-            callback(null, uid + path.extname(file.originalname));
-        });
-    }
-});
-
-var uploader = multer({
-    storage: diskStorage,
-    limits: {
-        fileSize: 2097152
-    }
-});
+const bigfile = require("./bigfile");
+console.log("this is big file", bigfile);
 
 app.use(express.static("./public"));
 app.use(bodyParser.json());
@@ -57,6 +41,10 @@ if (process.env.NODE_ENV != "production") {
 }
 
 //routes//
+
+app.get("/getbigfile", (req, res) => {
+    res.json(bigfile);
+});
 
 app.get("/welcome", (req, res) => {
     if (req.session.userId) {
@@ -109,24 +97,6 @@ app.post("/login", (req, res) => {
         .catch(err => {
             res.json({ success: false });
         });
-});
-
-app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
-    if (req.file) {
-        const url = config.s3Url + req.file.filename;
-        db.putUrlIntoTable(url, req.session.userId)
-            .then(({ rows }) => {
-                res.json(rows[0]);
-                console.log(rows);
-            })
-            .catch(err => {
-                console.log("err in putInTable:", err);
-            });
-    } else {
-        res.json({
-            success: false
-        });
-    }
 });
 
 app.get("/user", (req, res) => {
@@ -252,5 +222,5 @@ app.get("*", function(req, res) {
 });
 
 app.listen(8080, function() {
-    console.log("I'm listening to your commands, master.");
+    console.log("Yes, madam!");
 });

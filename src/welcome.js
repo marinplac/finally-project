@@ -1,28 +1,18 @@
 import React from "react";
-// import axios from "./axios";
-import Registration from "./registration";
-import { HashRouter, Route } from "react-router-dom";
-import Login from "./login";
+import axios from "./axios";
 
 export default class Welcome extends React.Component {
+    componentDidMount() {
+        axios.get("/getbigfile").then(data => {
+            console.log({ data }, "this data");
+        });
+    }
+
     render() {
         return (
             <div>
-                <div id="logodiv">
-                    <img id="logopic" src="/mountainlogo.png" />
-                </div>
-                <div id="titlemountainlovers">
-                    <h1>MOUNTAIN LOVERS</h1>
-                    <p>Welcome!</p>
-                </div>
-
-                <div id="welcome">
-                    <HashRouter>
-                        <div id="registrationandloginform">
-                            <Route exact path="/" component={Registration} />
-                            <Route path="/login" component={Login} />
-                        </div>
-                    </HashRouter>
+                <div id="titleofthepage">
+                    <h1>Orphei hymnorum epitheta</h1>
                 </div>
             </div>
         );

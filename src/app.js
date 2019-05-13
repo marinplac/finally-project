@@ -1,11 +1,7 @@
 import React from "react";
 import axios from "./axios";
-import Profile from "./profile";
-import OtherProfile from "./otherprofile";
+
 import { BrowserRouter, Route } from "react-router-dom";
-// import Chat from "./chat";
-import Friends from "./friends";
-import ProfilePic from "./profilepic";
 
 export default class App extends React.Component {
     constructor(props) {
