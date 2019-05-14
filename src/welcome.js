@@ -29,9 +29,10 @@ export default class Welcome extends React.Component {
         // console.log("tunnock's teacakes");
         console.log(e.target.innerHTML, "this is e.target.innerHTML");
         const filteredWord = this.state.bigfile.filter(word => {
+            console.log(word.appears, "this word appears");
             return e.target.innerHTML == word.appears;
         });
-        console.log(filteredWord[0]);
+        console.log("clicked word", filteredWord[0]);
         this.setState({
             chosenWord: filteredWord[0].unit,
             form: filteredWord[0].form,
@@ -43,11 +44,6 @@ export default class Welcome extends React.Component {
     }
 
     render() {
-        // for (var i = 0; i < data.bigfile.length; i++) {
-        //     var data = data.bigfile[i];
-        //
-        //     console.log(data.unit);
-        // }
         return (
             <div>
                 <div id="titleofpage">
@@ -153,13 +149,7 @@ export default class Welcome extends React.Component {
                             <br />
                         </span>
                         <span>
-                            τιμὰς ἐν μακάρεσσιν ἔχεις, Διόνυσε{" "}
-                            <span
-                                className="highlight"
-                                onClick={e => this.handleChange(e)}
-                            >
-                                χορευτά·
-                            </span>
+                            τιμὰς ἐν μακάρεσσιν ἔχεις, Διόνυσε χορευτά·
                             <br />
                         </span>
                         <span>
@@ -222,7 +212,7 @@ export default class Welcome extends React.Component {
                             <br />
                         </span>
                         <span>
-                            Λητώ τ'
+                            Λητώ τ'{" "}
                             <span
                                 className="highlight"
                                 onClick={e => this.handleChange(e)}
@@ -469,8 +459,9 @@ export default class Welcome extends React.Component {
                                 className="highlight"
                                 onClick={e => this.handleChange(e)}
                             >
-                                ἁγνὸν Ἄδωνιν
-                            </span>
+                                ἁγνὸν
+                            </span>{" "}
+                            Ἄδωνιν
                             <br />
                         </span>
                         <span>
