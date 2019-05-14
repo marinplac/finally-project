@@ -7,12 +7,60 @@ const bcryptauth = require("./utils/bc");
 const db = require("./utils/db");
 const csurf = require("csurf");
 
-// const uidSafe = require("uid-safe");
-// const path = require("path");
-
 const config = require("./config.json");
 const bigfile = require("./bigfile");
-console.log("this is big file", bigfile);
+// console.log("this is big file", bigfile);
+
+const myText = `
+ΟΡΦΕΥΣ ΠΡΟΣ ΜΟΥΣΑΙΟΝ
+
+Εὐτυχῶς χρῶ, ἑταῖρε.
+
+Μάνθανε δή, Μουσαῖε, θυηπολίην περισέμνην,
+εὐχήν, ἣ δή τοι προφερεστέρη ἐστὶν ἁπασέων.
+Ζεῦ βασιλεῦ καὶ Γαῖα καὶ οὐράνιαι φλόγες ἁγναὶ
+Ἠελίου, Μήνης θ' ἱερὸν σέλας Ἄστρα τε πάντα
+καὶ σύ, Ποσείδαον γαιήοχε, κυανοχαῖτα,
+Φερσεφόνη θ' ἁγνὴ Δημήτηρ τ' ἀγλαόκαρπε
+Ἄρτεμί <τ'> ἰοχέαιρα, κόρη, καὶ ἤιε Φοῖβε,
+ὃς Δελφῶν ναίεις ἱερὸν πέδον· ὅς τε μεγίστας
+τιμὰς ἐν μακάρεσσιν ἔχεις, Διόνυσε χορευτά·
+Ἆρές τ' ὀμβριμόθυμε καὶ Ἡφαίστου μένος ἁγνὸν
+ἀφρογενής τε θεά, μεγαλώνυμα δῶρα λαχοῦσα·
+καὶ σύ, καταχθονίων βασιλεῦ, μέγ'  ίροχε δαῖμον,
+Ἥβη τ' Εἰλείθυια καὶ Ἡρακλέος μένος ἠύ·
+καὶ τὸ Δικαιοσύνης τε καὶ Εὐσεβίης μέγ' ὄνειαρ
+κικλήσκω Νύμφας τε κλυτὰς καὶ Πᾶνα μέγιστον
+Ἥρην τ', αἰγιόχοιο Διὸς θαλερὴν παράκοιτιν·
+Μνημοσύνην τ' ἐρατὴν Μούσας τ' ἐπικέκλομαι ἁγνὰς
+ἐννέα καὶ Χάριτάς τε καὶ Ὥρας ἠδ' Ἐνιαυτὸν
+Λητώ τ' εὐπλόκαμον, Θείην σεμνήν τε Διώνην
+Κουρῆτάς τ' ἐνόπλους Κορύβαντάς τ' ἠδὲ Καβείρους
+καὶ μεγάλους Σωτῆρας ὁμοῦ, Διὸς ἄφθιτα τέκνα,
+Ἰδαίους τε θεοὺς ἠδ' ἄγγελον Οὐρανιώνων,
+Ἑρμείαν κήρυκα, Θέμιν θ', ἱεροσκόπον ἀνδρῶν,
+Νύκτα τε πρεσβίστην καλέω καὶ φωσφόρον Ἦμαρ,
+Πίστιν τ' ἠδὲ Δίκην καὶ ἀμύμονα Θεσμοδότειραν,
+Ῥείαν τ' ἠδὲ Κρόνον καὶ Τηθὺν κυανόπεπλον
+Ὠκεανόν τε μέγαν, σύν τ' Ὠκεανοῖο θύγατρας
+Ἄτλαντός τε καὶ Αἰῶνος μέγ' ὑπείροχον ἰσχὺν
+καὶ Χρόνον ἀέναον καὶ τὸ Στυγὸς ἀγλαὸν ὕδωρ
+μειλιχίους τε θεούς, ἀγαθήν τ' ἐπὶ τοῖσι Πρόνοιαν
+Δαίμονά τ' ἠγάθεον καὶ Δαίμονα πήμονα θνητῶν,
+Δαίμονας οὐρανίους καὶ ἠερίους καὶ ἐνύδρους
+καὶ χθονίους καὶ ὑποχθονίους ἠδ' ἐμπυριφοίτους,
+καὶ Σεμέλην Βάκχου τε συνευαστῆρας ἅπαντας,
+Ἰνὼ Λευκοθέην τε Παλαίμονά τ' ὀλβιοδώτην
+Νίκην θ' ἡδυέπειαν ἰδ' Ἀδρήστειαν ἄνασσαν
+καὶ βασιλῆα μέγαν Ἀσκληπιὸν ἠπιοδώτην
+Παλλάδα τ' ἐγρεμάχην κούρην, Ἀνέμους τε πρόπαντας
+καὶ Βροντὰς Κόσμου τε μέρη τετρακίονος αὐδῶ·
+Μητέρα τ' ἀθανάτων, Ἄττιν καὶ Μῆνα κικλήσκω
+Οὐρανίαν τε θεάν, σύν τ' ἄμβροτον ἁγνὸν Ἄδωνιν
+Ἀρχήν τ' ἠδὲ Πέρας–τὸ γὰρ ἔπλετο πᾶσι μέγιστον–
+εὐμενέας ἐλθεῖν κεχαρημένον ἦτορ ἔχοντας
+τήνδε θυηπολίην ἱερὴν σπονδήν τ' ἐπὶ σεμνήν.
+`;
 
 app.use(express.static("./public"));
 app.use(bodyParser.json());
@@ -43,10 +91,10 @@ if (process.env.NODE_ENV != "production") {
 //routes//
 
 app.get("/getbigfile", (req, res) => {
-    res.json(bigfile);
+    res.json({ bigfile: bigfile, myText: myText });
+    // res.json(bigfile);
 });
-
-app.get("/welcome", (req, res) => {
+app.get("/welcome", function(req, res) {
     if (req.session.userId) {
         res.redirect("/");
     } else {
@@ -54,166 +102,10 @@ app.get("/welcome", (req, res) => {
     }
 });
 
-app.post("/register", (req, res) => {
-    console.log("registration going on", req.body);
-    let firstname = req.body.firstname;
-    let lastname = req.body.lastname;
-    let email = req.body.email;
-    let password = req.body.password;
-    bcryptauth.hashPassword(password).then(password => {
-        db.registerUser(firstname, lastname, email, password)
-            .then(data => {
-                console.log(data);
-                req.session.userId = data.rows[0].id;
-                console.log(req.session, "this is session label");
-                res.json({ success: true });
-            })
-            .catch(err => {
-                console.log("err in register:", err);
-                res.json({ success: false });
-            });
-    });
-});
-app.post("/login", (req, res) => {
-    console.log("logging in going on", req.body);
-    let email = req.body.email;
-    let password = req.body.password;
-    db.getRegisteredPass(email)
-        .then(result => {
-            bcryptauth
-                .checkPassword(password, result.rows[0].password)
-                .then(match => {
-                    if (match) {
-                        req.session.userId = result.rows[0].id;
-                        res.json({ success: true });
-                    } else {
-                        res.json({ success: false });
-                    }
-                })
-                .catch(err => {
-                    res.json({ success: false });
-                });
-        })
-        .catch(err => {
-            res.json({ success: false });
-        });
-});
-
-app.get("/user", (req, res) => {
-    console.log("getting the user", req.body);
-    let firstname = req.body.firstname;
-    let lastname = req.body.lastname;
-    let profilePic = req.body.users_image;
-    db.getUser(req.session.userId).then(result => {
-        // console.log(result, "result from getting user");
-        res.json(result.rows[0]);
-    });
-});
-
-app.get("/user/:id/json", function(req, res) {
-    if (req.session.userId == req.params.id) {
-        return res.json({
-            redirectTo: "/"
-        });
-    }
-    db.getUser(req.params.id)
-        .then(data => {
-            // console.log(data, "this is get user data");
-
-            res.json(data.rows[0]);
-        })
-        .catch(err => {
-            console.log("error happening in getting other user", err);
-        });
-});
-
-app.post("/user/bio", function(req, res) {
-    console.log("posting the bio is happening", req.body);
-    let bio = req.body.bio;
-    db.setBio(req.session.userId, bio)
-        .then(data => {
-            console.log(req.session, "this is session label");
-            res.json({ success: true });
-        })
-        .catch(err => {
-            console.log(err, "this errore");
-            res.json({ success: false });
-        });
-});
-
-//friends requests//
-app.get("/user/friendrequest/:id/json", function(req, res) {
-    console.log("getting the requested friendship", req.body);
-    db.getFriendReq(req.session.userId, req.params.id).then(data => {
-        console.log(data.rows, "this is the effing data");
-        if (data.rows.length === 0) {
-            // console.log("there is a friendship of some sort", data.rows[0]);
-            res.json({ buttontext: "send friend request" });
-        } else if (data.rows[0].sender_id == req.session.userId) {
-            res.json({ buttontext: "cancel friend request" });
-        } else if (data.rows[0].recipient_id == req.session.userId) {
-            res.json({ buttontext: "accept friend request" });
-        } else {
-            res.json({ buttontext: "unfriend" });
-        }
-    });
-});
-app.post("/user/makefriendship/:id/json", function(req, res) {
-    console.log("getting to makefriendship", req.body);
-    db.beFriend(req.session.userId, req.params.id)
-        .then(data => {
-            console.log("data from makefriendship", data);
-            res.json({ buttontext: "cancel friendship req" });
-        })
-        .catch(err => {
-            console.log("error in sending friendship request");
-        });
-});
-app.post("/user/cancelfriendship/:id/json", function(req, res) {
-    console.log("getting to cancelfriendshiprequest", req.body);
-    db.cancelReq(req.session.userId, req.params.id).then(data => {
-        res.json({ buttontext: "send friendship request" }).catch(err => {
-            console.log("error in canceling friendship");
-        });
-    });
-});
-app.post("/user/acceptfriendship/:id/json", function(req, res) {
-    console.log("getting to accepting friendship", req.body);
-    db.acceptReq(req.session.userId, req.params.id).then(data => {
-        res.json({ buttontext: "end friendship" }).catch(err => {
-            console.log("error in accepting friendship");
-        });
-    });
-});
-app.post("/user/endfriendship/:id/json", function(req, res) {
-    console.log("getting to end friendship", req.body);
-    db.endFriend(req.session.userId, req.params.id).then(data => {
-        res.json({ buttontext: "send friendship request" }).catch(err => {
-            console.log("error in ending friendship");
-        });
-    });
-});
-
-app.get("/logout", (req, res) => {
-    req.session = null;
-    res.redirect("/welcome");
-});
-
-app.get("/friendsdata", (req, res) => {
-    console.log(req.session.userId);
-    db.getFriendsAndWannabes(req.session.userId)
-        .then(data => {
-            console.log(data.rows, "it is getting to friends");
-            res.json(data.rows);
-        })
-        .catch(err => {
-            console.log(err, "error in friends");
-        });
-});
-
 //do not ever delete this!//
 
 app.get("*", function(req, res) {
+    console.log(req.session);
     if (!req.session.userId) {
         res.redirect("/welcome");
     } else {
