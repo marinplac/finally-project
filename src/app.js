@@ -1,7 +1,6 @@
 import React from "react";
-import axios from "./axios";
+// import axios from "./axios";
 
-// import { BrowserRouter, Route } from "react-router-dom";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -9,19 +8,18 @@ export default class App extends React.Component {
         this.state = {};
 
     }
-    componentDidMount() {
-        axios.get("/user").then(({ data }) => {
-            console.log(data);
-            this.setState(data);
-        });
-    }
+    // componentDidMount() {
+    //     axios.get("/user").then(({ data }) => {
+    //         console.log(data);
+    //         this.setState(data);
+    //     });
+    // }
 
-    }
+
+
     render() {
         if (!this.state.id) {
-            return (
-
-            );
+            return null;
         }
         return (
             <div>
@@ -29,3 +27,4 @@ export default class App extends React.Component {
             </div>
         );
     }
+}

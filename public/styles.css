@@ -13,20 +13,33 @@
     flex-direction: column;
     align-items: center; */
     text-align: center;
-    width:100%;
+    width: 100%;
     /* border: 2px solid salmon; */
     margin-bottom: 50px;
-
 }
-main{
-    width:100%;
-}
-body{
+main {
     width: 100%;
+}
+body {
     background-color: #69779b;
     font-family: "Barlow", sans-serif;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    align-items:flex-start;
+    align-items: flex-start;
+}
+.highlight {
+    color: salmon;
+}
+#textholderdiv {
+    border: 2px salmon solid;
+    width: 50vw;
+}
+#bigcontainer {
+    display: flex;
+    justify-content: space-around;
+}
+#smallwindow {
+    width: 40vw;
+    border: 2px solid salmon;
 }
