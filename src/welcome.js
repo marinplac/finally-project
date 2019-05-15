@@ -5,6 +5,7 @@ export default class Welcome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            letter: "",
             chosenWord: "",
 
             form: "",
@@ -39,6 +40,7 @@ export default class Welcome extends React.Component {
         });
         console.log("clicked word", filteredWord[0]);
         this.setState({
+            letter: filteredWord[0].letter,
             chosenWord: filteredWord[0].unit,
             form: filteredWord[0].form,
             origin: filteredWord[0].origin,
@@ -508,6 +510,7 @@ export default class Welcome extends React.Component {
                     </div>
                     {this.state.isVisible && (
                         <div id="smallwindow">
+                            <p className="letter">{this.state.letter}</p>
                             <p>
                                 <i className="fas fa-search" />{" "}
                                 {this.state.chosenWord}
