@@ -13,10 +13,12 @@ export default class Welcome extends React.Component {
             elsewhere: "",
             desc: "",
             isVisible: false,
-            matchingCategories: ""
+            matchingCategories: "",
+            matchingOrigin: ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.formClick = this.formClick.bind(this);
+        this.originClick = this.originClick.bind(this);
     }
     componentDidMount() {
         axios.get("/getbigfile").then(data => {
@@ -44,7 +46,8 @@ export default class Welcome extends React.Component {
             elsewhere: filteredWord[0].elsewhere,
             desc: filteredWord[0].desc,
             isVisible: true,
-            matchingCategories: ""
+            matchingCategories: "",
+            matchingOrigin: ""
         });
     }
     formClick(e) {
@@ -56,6 +59,17 @@ export default class Welcome extends React.Component {
         });
         console.log(matching, "this is matching");
         this.setState({ matchingCategories: matching });
+    }
+    originClick(e) {
+        console.log("clicked on origin", e.target.innerHTML.split(" ")[0]);
+        const originCategory = e.target.innerHTML.split(" ")[0];
+        console.log(this.state.bigfile, "this is origin");
+        const originMatch = this.state.bigfile.filter(word => {
+            console.log("yeah!", originCategory, word.origin);
+            return originCategory == word.origin.split(" ")[0];
+        });
+        console.log("origin match", originMatch);
+        this.setState({ matchingOrigin: originMatch });
     }
 
     render() {
@@ -505,10 +519,15 @@ export default class Welcome extends React.Component {
                             >
                                 {this.state.form}
                             </p>
-                            <p>
+                            <div className="extramargin">
                                 <i className="fas fa-glasses" />{" "}
-                                {this.state.origin}
-                            </p>
+                                <p
+                                    className="inline"
+                                    onClick={e => this.originClick(e)}
+                                >
+                                    {this.state.origin}
+                                </p>
+                            </div>
                             <p>
                                 <i className="fas fa-hand-point-right" />{" "}
                                 {this.state.occurence}
@@ -526,6 +545,13 @@ export default class Welcome extends React.Component {
                             )}
                             {this.state.matchingCategories &&
                                 this.state.matchingCategories.map(word => (
+                                    <div key={word.unit}>{word.unit}</div>
+                                ))}
+                            {this.state.matchingOrigin && (
+                                <h2> Остали из истог извора: </h2>
+                            )}
+                            {this.state.matchingOrigin &&
+                                this.state.matchingOrigin.map(word => (
                                     <div key={word.unit}>{word.unit}</div>
                                 ))}
                         </div>

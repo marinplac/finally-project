@@ -49,3 +49,6 @@ body {
     display: inline-block;
     margin: 0;
 }
+.extramargin {
+    margin: 22px 0;
+}
