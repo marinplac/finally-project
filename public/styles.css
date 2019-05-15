@@ -1,13 +1,13 @@
 /* * {
     background-color: #69779b;
-    font-family: "Barlow", sans-serif;
+    font-family: 'Didact Gothic', sans-serif;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
     align-items:flex-start;
 } */
 #titleofpage {
-    font-size: 20px;
+    font-size: 25px;
     /* display: flex;
     justify-content: center;
     flex-direction: column;
@@ -22,7 +22,7 @@ main {
 }
 body {
     background-color: #69779b;
-    font-family: "Barlow", sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -32,8 +32,9 @@ body {
     color: salmon;
 }
 #textholderdiv {
-    border: 2px salmon solid;
+    /* border: 2px salmon solid; */
     width: 50vw;
+    font-size: 22px;
 }
 #bigcontainer {
     display: flex;
@@ -41,5 +42,10 @@ body {
 }
 #smallwindow {
     width: 40vw;
-    border: 2px solid salmon;
+    /* border: 2px solid salmon; */
+    font-size: 22px;
+}
+.inline {
+    display: inline-block;
+    margin: 0;
 }

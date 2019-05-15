@@ -11,9 +11,12 @@ export default class Welcome extends React.Component {
             origin: "",
             occurence: "",
             elsewhere: "",
-            desc: ""
+            desc: "",
+            isVisible: false,
+            matchingCategories: ""
         };
         this.handleChange = this.handleChange.bind(this);
+        this.formClick = this.formClick.bind(this);
     }
     componentDidMount() {
         axios.get("/getbigfile").then(data => {
@@ -39,8 +42,20 @@ export default class Welcome extends React.Component {
             origin: filteredWord[0].origin,
             occurence: filteredWord[0].occurence,
             elsewhere: filteredWord[0].elsewhere,
-            desc: filteredWord[0].desc
+            desc: filteredWord[0].desc,
+            isVisible: true,
+            matchingCategories: ""
         });
+    }
+    formClick(e) {
+        console.log("clicked on", e.target.innerHTML.split(" ")[0]);
+        const formCategory = e.target.innerHTML.split(" ")[0];
+        const matching = this.state.bigfile.filter(word => {
+            console.log(formCategory == word.form.split(" ")[0]);
+            return formCategory == word.form.split(" ")[0];
+        });
+        console.log(matching, "this is matching");
+        this.setState({ matchingCategories: matching });
     }
 
     render() {
@@ -452,7 +467,6 @@ export default class Welcome extends React.Component {
                                 className="highlight"
                                 onClick={e => this.handleChange(e)}
                             >
-                                {" "}
                                 ἄμβροτον
                             </span>{" "}
                             <span
@@ -477,16 +491,45 @@ export default class Welcome extends React.Component {
                             τήνδε θυηπολίην ἱερὴν σπονδήν τ' ἐπὶ σεμνήν.
                             <br />
                         </span>
-                        `
                     </div>
-                    <div id="smallwindow">
-                        <p>{this.state.chosenWord}</p>
-                        <p>{this.state.form}</p>
-                        <p>{this.state.origin}</p>
-                        <p>{this.state.occurence}</p>
-                        <p>{this.state.elsewhere}</p>
-                        <p>{this.state.desc}</p>
-                    </div>
+                    {this.state.isVisible && (
+                        <div id="smallwindow">
+                            <p>
+                                <i className="fas fa-search" />{" "}
+                                {this.state.chosenWord}
+                            </p>
+                            <i className="fas fa-wrench " />{" "}
+                            <p
+                                className="inline"
+                                onClick={e => this.formClick(e)}
+                            >
+                                {this.state.form}
+                            </p>
+                            <p>
+                                <i className="fas fa-glasses" />{" "}
+                                {this.state.origin}
+                            </p>
+                            <p>
+                                <i className="fas fa-hand-point-right" />{" "}
+                                {this.state.occurence}
+                            </p>
+                            <p>
+                                <i className="fas fa-book" />{" "}
+                                {this.state.elsewhere}
+                            </p>
+                            <p>
+                                <i className="far fa-comment-dots" />{" "}
+                                {this.state.desc}
+                            </p>
+                            {this.state.matchingCategories && (
+                                <h2> Остали из категорије: </h2>
+                            )}
+                            {this.state.matchingCategories &&
+                                this.state.matchingCategories.map(word => (
+                                    <div key={word.unit}>{word.unit}</div>
+                                ))}
+                        </div>
+                    )}
                 </div>
             </div>
         );
