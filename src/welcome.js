@@ -509,7 +509,7 @@ export default class Welcome extends React.Component {
                         </span>
                     </div>
                     {this.state.isVisible && (
-                        <div id="smallwindow">
+                        <div className="animated slideInRight" id="smallwindow">
                             <p className="letter">{this.state.letter}</p>
                             <p>
                                 <i className="fas fa-search" />{" "}
@@ -517,15 +517,15 @@ export default class Welcome extends React.Component {
                             </p>
                             <i className="fas fa-wrench " />{" "}
                             <p
-                                className="inline"
+                                className="inline highlight"
                                 onClick={e => this.formClick(e)}
                             >
                                 {this.state.form}
                             </p>
                             <div className="extramargin">
-                                <i className="fas fa-glasses" />{" "}
+                                <i className="fas fa-glasses " />{" "}
                                 <p
-                                    className="inline"
+                                    className="inline highlight"
                                     onClick={e => this.originClick(e)}
                                 >
                                     {this.state.origin}
@@ -548,7 +548,12 @@ export default class Welcome extends React.Component {
                             )}
                             {this.state.matchingCategories &&
                                 this.state.matchingCategories.map(word => (
-                                    <div key={word.unit}>{word.unit}</div>
+                                    <div
+                                        className="animated flipInX"
+                                        key={word.unit}
+                                    >
+                                        {word.unit}
+                                    </div>
                                 ))}
                             {this.state.matchingOrigin && (
                                 <h2> Остали из истог извора: </h2>
