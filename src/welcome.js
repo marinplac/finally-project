@@ -7,7 +7,6 @@ export default class Welcome extends React.Component {
         this.state = {
             letter: "",
             chosenWord: "",
-
             form: "",
             origin: "",
             occurence: "",
@@ -39,18 +38,25 @@ export default class Welcome extends React.Component {
             return e.target.innerHTML == word.appears;
         });
         console.log("clicked word", filteredWord[0]);
-        this.setState({
-            letter: filteredWord[0].letter,
-            chosenWord: filteredWord[0].unit,
-            form: filteredWord[0].form,
-            origin: filteredWord[0].origin,
-            occurence: filteredWord[0].occurence,
-            elsewhere: filteredWord[0].elsewhere,
-            desc: filteredWord[0].desc,
-            isVisible: true,
-            matchingCategories: "",
-            matchingOrigin: ""
-        });
+        this.setState(
+            {
+                isVisible: false
+            },
+            () => {
+                this.setState({
+                    letter: filteredWord[0].letter,
+                    chosenWord: filteredWord[0].unit,
+                    form: filteredWord[0].form,
+                    origin: filteredWord[0].origin,
+                    occurence: filteredWord[0].occurence,
+                    elsewhere: filteredWord[0].elsewhere,
+                    desc: filteredWord[0].desc,
+                    isVisible: true,
+                    matchingCategories: "",
+                    matchingOrigin: ""
+                });
+            }
+        );
     }
     formClick(e) {
         console.log("clicked on", e.target.innerHTML.split(" ")[0]);
@@ -560,7 +566,12 @@ export default class Welcome extends React.Component {
                             )}
                             {this.state.matchingOrigin &&
                                 this.state.matchingOrigin.map(word => (
-                                    <div key={word.unit}>{word.unit}</div>
+                                    <div
+                                        className="animated flipInY"
+                                        key={word.unit}
+                                    >
+                                        {word.unit}
+                                    </div>
                                 ))}
                         </div>
                     )}
